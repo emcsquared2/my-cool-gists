@@ -1,0 +1,107 @@
+const readline = require('readline-sync');
+
+const initialize = () => {
+console.log('')
+console.log('---------------------------------------')
+console.log('  ')
+console.log('****  WELCOME TO THE CALCULATOR!  **** \n \n Which Calculator Mode would like? \n\n');
+console.log('======================================')
+console.log('MAIN MENU');
+console.log('1. Arithmetic Mode');
+console.log('2. Vowel Counting Mode');
+console.log('====================================== \n\n')
+console.log('Please enter 1 or 2 and press Enter:');
+let calculatorMode = readline.prompt();
+
+if (calculatorMode =='1'){
+    console.log('\n\nYou have selected Arithmetic Mode...\n')
+    numCalculator();
+} else if (calculatorMode =='2'){
+    vowelCalculator();
+} else {
+    console.log('Error - Please enter 1 or 2');
+    initialize();
+}
+};
+
+let decider ='1';
+
+const numCalculator = () => {
+while(decider=='1'){
+console.log('Please enter the operator (add + subtract - multiply * divide / ) and press Enter:');
+const operator = readline.prompt();
+
+console.log(`How many numbers would you like to ${operator} together?:`);
+const stringIterations = readline.prompt();
+const iterations = +stringIterations;
+
+numArray = [];
+for(let i=1; i<=iterations; i++){
+    console.log(`Please enter number ${i}:`)
+    let stringNum = readline.prompt();
+    let num = +stringNum
+    numArray.push(num)
+}
+
+let answer = numArray.reduce((acc,curr)=>{
+    if (operator==='+'){
+       return acc + curr
+    } else if (operator==='-'){
+        return  acc - curr
+    } else if (operator==='*'){
+        return acc * curr
+    } else if (operator==='/'){
+        return acc / curr
+    }
+}      
+);
+console.log(`Your answers is ${answer} \n \n`)
+endchoice()
+}
+}
+
+
+const vowelCalculator =()=>{
+while(decider=='1'){
+console.log('Please enter a string of your choice to calculate how many vowels it contains.  Type here and then press enter:')
+const str = readline.prompt();
+const upperCaseStr = str.toUpperCase()
+
+let strArray =[];
+strArray = upperCaseStr.split('');
+const vowelObj = {A:0,E:0,I:0,O:0,U:0}
+
+for (char of strArray){
+    for (let ch in vowelObj){
+       if (ch == char) {
+          vowelObj[ch]++
+       }
+    }
+  }
+console.log('==================================================')
+console.log(`You entered the word "${str}"`)
+console.log('==================================================')
+console.log(`Here is a breakdown of how many vowels it contains...`)
+for (let vowel in vowelObj){
+console.log( `${vowel}s:${vowelObj[vowel]} `)
+}
+endchoice();
+}
+};
+
+const endchoice =() =>{
+    console.log('If you would like another go press 1 and Enter. To return to the main menu press 2 and Enter:');
+    let decider = readline.prompt();
+    if (decider =='1'){
+        true
+    } else if (decider=='2') {
+        initialize()
+    } else {
+    console.log('Error')
+    initialize()
+    };
+    
+}
+
+
+initialize();
